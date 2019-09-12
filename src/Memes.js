@@ -6,8 +6,16 @@ import styled from "styled-components";
 const Toolbar = styled.div`
 font-family: georgia;
 display: grid;
-grid-template-columns: 1fr 1fr;
-background: rgba(0, 44, 44, 0.5);
+grid-template-columns: 1fr;
+background: grey;
+text-align: center;
+height: 100%;
+grid-row-gap: 1em;
+`;
+const MemeSelect = styled.select`
+max-width: 300px;
+font-family: georgia;
+max-height: 20px;
 `;
 
 
@@ -47,11 +55,10 @@ function Memes({ children }) {
     return (
         <Toolbar> 
             <MemeContext.Provider value={{memeId, setMemeId, memesMap}}>
-                <select onChange = {(evt) => setMemeId(evt.target.value)}>
+                <MemeSelect onChange = {(evt) => setMemeId(evt.target.value)}>
                     <option>*Pick A Meme*</option>
                     {_.map(memesMap, mapOption)}
-                </select>
-                Select a meme!
+                </MemeSelect>
                 {children}
             </MemeContext.Provider>
         </Toolbar>);

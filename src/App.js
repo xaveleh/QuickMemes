@@ -1,7 +1,7 @@
 import React from 'react';
 import Memes from './Memes';
 import MemeEditor from './MemeEditor'
-
+import './App.css';
 
 function App() {
     return (
