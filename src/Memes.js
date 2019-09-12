@@ -4,9 +4,12 @@ import {MemeContext} from "./MemeContext"
 import styled from "styled-components";
 
 const Toolbar = styled.div`
-background: rgba(255, 179, 44, 0.1);
 font-family: georgia;
-`
+display: grid;
+grid-template-columns: 1fr 1fr;
+background: rgba(0, 44, 44, 0.5);
+`;
+
 
 const getMemesPath = 'https://api.imgflip.com/get_memes';
 
@@ -23,7 +26,7 @@ function mapOption(currentMeme, memeId, memeMap) {
 
 function Memes({ children }) {
     const [memesMap, setMemesMap] = React.useState({});
-    const [memeId, setMemeId] = React.useState('');
+    const [memeId, setMemeId] = React.useState(-1);
     React.useEffect(() => {
         if(_.size(memesMap) === 0) {
             console.log('true')
@@ -45,9 +48,10 @@ function Memes({ children }) {
         <Toolbar> 
             <MemeContext.Provider value={{memeId, setMemeId, memesMap}}>
                 <select onChange = {(evt) => setMemeId(evt.target.value)}>
+                    <option>*Pick A Meme*</option>
                     {_.map(memesMap, mapOption)}
                 </select>
-                Select your meme, input some text, then submit to see the result!
+                Select a meme!
                 {children}
             </MemeContext.Provider>
         </Toolbar>);

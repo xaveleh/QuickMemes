@@ -8,7 +8,7 @@ function App() {
         <React.StrictMode>
             <header />
                 <Memes>
-                <MemeEditor />
+                    <MemeEditor />
                 </Memes>
             <footer />
         </React.StrictMode>

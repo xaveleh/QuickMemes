@@ -1,13 +1,7 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {MemeContext} from "./MemeContext";
 import _ from "lodash";
 import styled from "styled-components";
-
-const Wrapper = styled.div`
-display: grid;
-grid-template-columns: 1fr 1fr;
-background: rgba(0, 44, 44, 0.5);
-`;
 
 const MemeCanvas = styled.img`
 object-fit: contain;
@@ -17,6 +11,18 @@ text-align: center;
 margin: 3em;
 border: 1px solid black;
 `;
+const MemeTextInput = styled.label`
+display: block;
+margin: 1em;
+`;
+
+function makeMemeQuery(array) {
+    return _.map(array, formatMemeArray).join('&');
+}
+
+function formatMemeArray(value, index) {
+    return `boxes[${index}][text]=${value.text}`
+}
 
 function MemeEditor() {
     const {memeId, setMemeId, memesMap} = React.useContext(MemeContext);
@@ -33,10 +39,9 @@ function MemeEditor() {
         setTextArray(submittedText);
     }
 
-    
     React.useEffect(() => {
         if(textArray.some(value => !!value)) {
-            const MemeTemplatePath = `https://api.imgflip.com/caption_image?template_id=${memeId}&boxes[]=${JSON.stringify(textArray)}&username=IvyDoyle&password=mypassword`;
+            const MemeTemplatePath = `https://api.imgflip.com/caption_image?template_id=${memeId}&${makeMemeQuery(textArray)}&username=IvyDoyle&password=mypassword`;
             fetch(MemeTemplatePath, {
                 method: 'POST',
                 headers: {
@@ -49,22 +54,23 @@ function MemeEditor() {
                 console.log('response for memeeditor', json);
             })
         }
-    }, [memeId, textArray]);
+    }, [memeId, textArray, makeMemeQuery]);
     console.log('memeUrl', memeUrl);
+    const memeMetaData = _.get(memesMap, memeId, {"box_count": 0, "memeId": ""})
     const inputArray = [];
-    for (let i = 0; i <= 3; i++) {
-        inputArray.push(<input key={i} placeholder={`Text box ${i}`} type="text"></input>);
+    for (let i = 0; i < memeMetaData.box_count; i++) {
+        inputArray.push(<MemeTextInput><input key={i} placeholder={`Text box ${i+1}`} type="text"></input></MemeTextInput>);
     }
     return (
-    <Wrapper>
+    <Fragment>
         <form onSubmit = { handleSubmit }>
         {inputArray}
-            <label>
+            <MemeTextInput>
                 <input type="submit" value="Submit"/>
-            </label>
+            </MemeTextInput>
         </form>
-        <MemeCanvas src={memeUrl || _.get(memesMap, `${memeId}.url`)} alt="edited meme"/>
-    </Wrapper>);
+        <MemeCanvas src={memeUrl || memeMetaData.url} alt="Edited meme goes here!"/>
+    </Fragment>);
 }
 
 export default MemeEditor;
