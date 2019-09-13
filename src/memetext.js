@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MemeContext } from './MemeContext';
-import _ from 'lodash';
 
 const MemeTextInput = styled.label`
     display: block;
