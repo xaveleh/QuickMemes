@@ -2,18 +2,10 @@ import React, {Fragment} from 'react';
 import {MemeContext} from "./MemeContext";
 import _ from "lodash";
 import styled from "styled-components";
-import {
-    FacebookShareButton,
-    TwitterShareButton,
-    RedditShareButton,
-    TumblrShareButton,
-    EmailShareButton,
-    FacebookIcon,
-    TwitterIcon,
-    RedditIcon,
-    TumblrIcon,
-    EmailIcon
-  } from 'react-share';
+import ShareButtons from './sharebuttons';
+import UrlOutput from  './urloutput';
+import MemeSelect from './memeselect';
+import MemeText from './memetext';
 
 const MemeCanvas = styled.img`
 object-fit: contain;
@@ -26,27 +18,14 @@ width: 100%
 image-border: solid 1px black;
 font-family: georgia;
 `;
-const MemeTextInput = styled.label`
-display: block;
-margin: 0.5em;
-`;
 
 const MemeSubmit = styled.input`
 font-family: georgia;
 border: solid 1px black;
 `;
 
-const UrlOutput = styled.span`
-background: white;
-border: 1px solid black;
-font-family: georgia;
-`;
-
-const ShareButtons = styled.div`
-display: flex;
-flex-flow: row nowrap;
-align-items: center;
-justify-content: space-evenly;
+const Toolbar = styled.form`
+background: rgba(13, 8, 59, 0.75);
 `;
 
 function makeMemeQuery(array) {
@@ -58,19 +37,16 @@ function formatMemeArray(value, index) {
 }
 
 function MemeEditor() {
-    const {memeId, memesMap} = React.useContext(MemeContext);
-    const [textArray, setTextArray] = React.useState([]);
-    const [memeUrl, setMemeUrl] = React.useState('');
+    const {memeId, memesMap, memeUrl, dispatch, textArray, inputs} = React.useContext(MemeContext);
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        const submittedText = _.reduce(evt.target, (acc, target) => {
-            if(target.type === "text") {
-             acc.push({text: target.value}) 
-            }
-        return acc
-    }, []);
-        setTextArray(submittedText);
-    }
+        const submittedText = _.reduce(inputs, (acc, value) => {
+            acc.push({ text: value });
+            return acc;
+        }, []);
+        dispatch({ textArray: [...submittedText] });
+    };
+
 
     React.useEffect(() => {
         if(textArray.some(value => !!value)) {
@@ -83,34 +59,26 @@ function MemeEditor() {
             }).then((response) => {
                 return response.json();
             }).then((json) => {
-                setMemeUrl(json.data.url);
+                dispatch({ memeUrl: json.data.url });
                 console.log('response for memeeditor', json);
             })
         }
-    }, [memeId, textArray]);
-    console.log('memeUrl', memeUrl);
+    }, [memeId, textArray, dispatch]);
     const memeMetaData = _.get(memesMap, memeId, {"box_count": 0, "memeId": ""})
     const inputArray = [];
     for (let i = 0; i < memeMetaData.box_count; i++) {
-        inputArray.push(<MemeTextInput><input key={i} placeholder={`Text box ${i+1}`} type="text"></input></MemeTextInput>);
+        inputArray.push(<MemeText key={i} index={i} />);
     }
     return (
         <Fragment>
-            <form onSubmit = { handleSubmit }>
+            <Toolbar onSubmit={handleSubmit}>
+                <MemeSelect />
                 {inputArray}
-                <MemeTextInput>
-                    <MemeSubmit type="submit" value="Submit"/>
-                </MemeTextInput>
-            </form>
+                <MemeSubmit type="submit" value="Submit"/>
+            </Toolbar>
             <MemeCanvas src={memeUrl || memeMetaData.url} alt="Edited meme goes here!"/>
-            <UrlOutput>{memeUrl || "Your shareable meme URL will appear here!"}</UrlOutput>
-            <ShareButtons>
-                <RedditShareButton url={memeUrl}><RedditIcon/></RedditShareButton>
-                <FacebookShareButton url={memeUrl}><FacebookIcon/></FacebookShareButton>
-                <TwitterShareButton url={memeUrl}><TwitterIcon/></TwitterShareButton>
-                <TumblrShareButton url={memeUrl}><TumblrIcon/></TumblrShareButton>
-                <EmailShareButton url={memeUrl}><EmailIcon/></EmailShareButton>
-            </ShareButtons>
+            <UrlOutput url={memeUrl} />
+            <ShareButtons url={memeUrl} />
         </Fragment>
     );
 }

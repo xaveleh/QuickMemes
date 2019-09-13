@@ -1,23 +1,18 @@
 import React from 'react';
 import _ from 'lodash';
 import {MemeContext} from "./MemeContext"
-import styled from "styled-components";
+import MemeEditor from './MemeEditor';
+import styled from 'styled-components';
 
-const Toolbar = styled.div`
-font-family: georgia;
-display: grid;
-grid-template-columns: 1fr;
-background: grey;
-text-align: center;
-height: 100%;
-grid-row-gap: 1em;
+const StyledDiv = styled.main`
+    font-family: georgia;
+    display: grid;
+    grid-template-columns: 1fr;
+    background: rgba(57, 50, 118, 0.5);
+    text-align: center;
+    height: 100%;
+    grid-row-gap: 1em;
 `;
-const MemeSelect = styled.select`
-max-width: 300px;
-font-family: georgia;
-max-height: 20px;
-`;
-
 
 const getMemesPath = 'https://api.imgflip.com/get_memes';
 
@@ -28,13 +23,21 @@ function reduceMemesArray(memeMap, currentMeme) {
     return nextMemeMap;
 }
 
-function mapOption(currentMeme, memeId, memeMap) {
-    return <option value = {memeId} key={memeId}>{currentMeme.name}</option>;
+const initialState = {
+    memesMap: {},
+    memeId: -1,
+    memeUrl: '',
+    textArray: [],
+    inputs: [],
+}
+
+function reducer(state, action) {
+    return { ...state, ...action };
 }
 
 function Memes({ children }) {
-    const [memesMap, setMemesMap] = React.useState({});
-    const [memeId, setMemeId] = React.useState(-1);
+    const [state, dispatch] = React.useReducer(reducer, initialState);
+    const {memesMap} = state;
     React.useEffect(() => {
         if(_.size(memesMap) === 0) {
             console.log('true')
@@ -45,29 +48,24 @@ function Memes({ children }) {
             }).then((json) => {
                 console.log('Response', json);
                 const memeArray = json.data.memes;
-               setMemesMap({...memeArray.reduce(reduceMemesArray, memesMap)});
+                dispatch({
+                    memesMap: {...memeArray.reduce(reduceMemesArray, memesMap)},
+                });
             }).catch((error) => {
                 console.log('Caught error getting memes', error);
             });
         }
     }, [memesMap]);
-    console.log('render', memesMap)
+    console.log('render', state)
     return (
-        <Toolbar> 
-            <MemeContext.Provider value={{memeId, setMemeId, memesMap}}>
-                <MemeSelect onChange = {(evt) => setMemeId(evt.target.value)}>
-                    <option>*Pick A Meme*</option>
-                    {_.map(memesMap, mapOption)}
-                </MemeSelect>
-                {children}
+        <StyledDiv> 
+            <MemeContext.Provider value={{...state, dispatch}}>
+                <MemeEditor />
             </MemeContext.Provider>
-        </Toolbar>);
+        </StyledDiv>
+    );
     }
 
 
 
 export default Memes;
-
-
-
-
