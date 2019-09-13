@@ -71,7 +71,7 @@ function MemeEditor() {
     }
     return (
         <Fragment>
-            <Toolbar onClick={handleSubmit}>
+            <Toolbar onSubmit={handleSubmit}>
                 <MemeSelect />
                 {inputArray}
                 <MemeSubmit type="submit" value="Submit"/>
