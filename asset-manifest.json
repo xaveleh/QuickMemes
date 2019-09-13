@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/QuickMemes/static/css/main.9b2da3ce.chunk.css",
+    "main.js": "/QuickMemes/static/js/main.1fe62f6e.chunk.js",
+    "main.js.map": "/QuickMemes/static/js/main.1fe62f6e.chunk.js.map",
+    "runtime~main.js": "/QuickMemes/static/js/runtime~main.8a5609a2.js",
+    "runtime~main.js.map": "/QuickMemes/static/js/runtime~main.8a5609a2.js.map",
+    "static/js/2.5f825843.chunk.js": "/QuickMemes/static/js/2.5f825843.chunk.js",
+    "static/js/2.5f825843.chunk.js.map": "/QuickMemes/static/js/2.5f825843.chunk.js.map",
+    "index.html": "/QuickMemes/index.html",
+    "precache-manifest.11ff61055105bd4ff145a8100a504288.js": "/QuickMemes/precache-manifest.11ff61055105bd4ff145a8100a504288.js",
+    "service-worker.js": "/QuickMemes/service-worker.js",
+    "static/css/main.9b2da3ce.chunk.css.map": "/QuickMemes/static/css/main.9b2da3ce.chunk.css.map"
+  }
+}
