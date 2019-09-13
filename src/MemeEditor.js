@@ -19,7 +19,7 @@ image-border: solid 1px black;
 font-family: georgia;
 `;
 
-const MemeSubmit = styled.input`
+const MemeSubmit = styled.button`
 font-family: georgia;
 border: solid 1px black;
 `;
@@ -54,7 +54,8 @@ function MemeEditor() {
             fetch(MemeTemplatePath, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Access-Control-Allow-Origin': '*'
                 } 
             }).then((response) => {
                 return response.json();
@@ -74,7 +75,7 @@ function MemeEditor() {
             <Toolbar onSubmit={handleSubmit}>
                 <MemeSelect />
                 {inputArray}
-                <MemeSubmit type="submit" value="Submit"/>
+                <MemeSubmit type="submit">Submit</MemeSubmit>
             </Toolbar>
             <MemeCanvas src={memeUrl || memeMetaData.url} alt="Edited meme goes here!"/>
             <UrlOutput url={memeUrl} />
