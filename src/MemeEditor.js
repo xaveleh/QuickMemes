@@ -50,7 +50,7 @@ function MemeEditor() {
 
     React.useEffect(() => {
         if(textArray.some(value => !!value)) {
-            const MemeTemplatePath = `https://api.imgflip.com/caption_image?template_id=${memeId}&${makeMemeQuery(textArray)}&username=IvyDoyle&password=mypassword`;
+            const MemeTemplatePath =`https://cors-anywhere.herokuapp.com/https://api.imgflip.com/caption_image?template_id=${memeId}&${makeMemeQuery(textArray)}&username=IvyDoyle&password=mypassword`;
             fetch(MemeTemplatePath, {
                 method: 'POST',
                 headers: {
