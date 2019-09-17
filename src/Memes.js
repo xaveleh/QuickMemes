@@ -27,7 +27,6 @@ const initialState = {
     memesMap: {},
     memeId: -1,
     memeUrl: '',
-    textArray: [],
     inputs: [],
 }
 

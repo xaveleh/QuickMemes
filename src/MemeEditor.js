@@ -37,20 +37,15 @@ function formatMemeArray(value, index) {
 }
 
 function MemeEditor() {
-    const {memeId, memesMap, memeUrl, dispatch, textArray, inputs} = React.useContext(MemeContext);
+    const {memeId, memesMap, memeUrl, dispatch, inputs} = React.useContext(MemeContext);
     const handleSubmit = (evt) => {
         evt.preventDefault();
+        if(inputs.some(value => !!value)) {
         const submittedText = _.reduce(inputs, (acc, value) => {
             acc.push({ text: value });
             return acc;
         }, []);
-        dispatch({ textArray: [...submittedText] });
-    };
-
-
-    React.useEffect(() => {
-        if(inputs.some(value => !!value)) {
-            const MemeTemplatePath =`https://cors-anywhere.herokuapp.com/https://api.imgflip.com/caption_image?template_id=${memeId}&${makeMemeQuery(textArray)}&username=IvyDoyle&password=mypassword`;
+            const MemeTemplatePath =`https://cors-anywhere.herokuapp.com/https://api.imgflip.com/caption_image?template_id=${memeId}&${makeMemeQuery(submittedText)}&username=IvyDoyle&password=mypassword`;
             fetch(MemeTemplatePath, {
                 method: 'POST',
                 headers: {
@@ -61,10 +56,9 @@ function MemeEditor() {
                 return response.json();
             }).then((json) => {
                 dispatch({ memeUrl: json.data.url });
-                console.log('response for memeeditor', json);
-            })
-        }
-    }, [memeId, textArray, dispatch]);
+            });
+    }};
+
     const memeMetaData = _.get(memesMap, memeId, {"box_count": 0, "memeId": ""})
     const inputArray = [];
     for (let i = 0; i < memeMetaData.box_count; i++) {
