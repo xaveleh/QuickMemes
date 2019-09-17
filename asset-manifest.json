@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/QuickMemes/static/css/main.9b2da3ce.chunk.css",
-    "main.js": "/QuickMemes/static/js/main.20c5c890.chunk.js",
-    "main.js.map": "/QuickMemes/static/js/main.20c5c890.chunk.js.map",
+    "main.js": "/QuickMemes/static/js/main.fa33c052.chunk.js",
+    "main.js.map": "/QuickMemes/static/js/main.fa33c052.chunk.js.map",
     "runtime~main.js": "/QuickMemes/static/js/runtime~main.8a5609a2.js",
     "runtime~main.js.map": "/QuickMemes/static/js/runtime~main.8a5609a2.js.map",
-    "static/js/2.5f825843.chunk.js": "/QuickMemes/static/js/2.5f825843.chunk.js",
-    "static/js/2.5f825843.chunk.js.map": "/QuickMemes/static/js/2.5f825843.chunk.js.map",
+    "static/js/2.466f8d9a.chunk.js": "/QuickMemes/static/js/2.466f8d9a.chunk.js",
+    "static/js/2.466f8d9a.chunk.js.map": "/QuickMemes/static/js/2.466f8d9a.chunk.js.map",
     "index.html": "/QuickMemes/index.html",
-    "precache-manifest.d6efd44a2bde1a53d2f4bd6267d888a4.js": "/QuickMemes/precache-manifest.d6efd44a2bde1a53d2f4bd6267d888a4.js",
+    "precache-manifest.fcec359184716747ee84fe7395d841bb.js": "/QuickMemes/precache-manifest.fcec359184716747ee84fe7395d841bb.js",
     "service-worker.js": "/QuickMemes/service-worker.js",
     "static/css/main.9b2da3ce.chunk.css.map": "/QuickMemes/static/css/main.9b2da3ce.chunk.css.map"
   }
