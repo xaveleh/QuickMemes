@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const UrlOutputSpan = styled.span`
 background: rgba(131, 126, 127, 0.5);
-border: 1px solid black;
+border: 1px solid rgba(13, 8, 59, 0.75);
 font-family: georgia;
 `;
 
