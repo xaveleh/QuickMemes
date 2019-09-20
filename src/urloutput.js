@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const UrlOutputSpan = styled.span`
-background: rgba(131, 126, 127, 0.5);
-border: 1px solid rgba(13, 8, 59, 0.75);
-font-family: georgia;
+background: hsl(204, 14%, 50%);
+border: 1px solid white;
+font-family:Arial;
 `;
 
 

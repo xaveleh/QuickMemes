@@ -5,8 +5,8 @@ import { MemeContext } from './MemeContext';
 
 const MemeSelector = styled.select`
     max-width: 300px;
-    font-family: georgia;
     max-height: 20px;
+    font-family:Arial;
 `;
 
 function mapOption(currentMeme, memeId) {

@@ -8,7 +8,7 @@ const StyledDiv = styled.main`
     font-family: georgia;
     display: grid;
     grid-template-columns: 1fr;
-    background: rgba(57, 50, 118, 0.5);
+    background: hsl(204, 15%, 65%);
     text-align: center;
     height: 100%;
     grid-row-gap: 1em;

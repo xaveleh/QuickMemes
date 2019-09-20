@@ -9,4 +9,5 @@
     overflow-y: scroll;
     grid-template-rows: auto 1fr auto;
     display: grid;
+    font-family: Arial;
 }
